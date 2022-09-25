@@ -1,0 +1,104 @@
+
+body{
+background-color: rgb(220, 247, 238);
+        
+}
+.page{
+    display: block;
+    padding: 150px 50px;
+    margin: 50px 150px;
+    background-color: rgb(184, 248, 227);
+    border: rgb(184, 248, 227);
+    border-radius: 15px;
+    
+}
+header{
+    display: flex;
+    flex-direction: row; 
+
+margin-left: 100px;
+}
+
+.earth{
+    display: inline;
+    position: relative;
+    margin: 0;
+    max-width: 35px;
+    max-height: 36px;
+    margin-right: 10px;
+}
+
+.main-info{
+    display: flex;
+    margin-top: 20px;
+    margin-left: 100px;
+    margin-bottom: 20px;
+}
+.Current-weather{
+    
+    margin-top: 20px;
+}
+.City-date{
+    
+    margin-left: 90px;
+}
+
+.card-group{
+    display: flex;
+    flex-direction: row;
+    margin-left: 100px;
+}
+.day{
+    text-align: center;
+width: 100px;
+border: 1px solid rgb(72, 168, 160);  
+border-radius: 15px;
+margin-right: 5px;
+}
+.day:hover{
+    background-color:rgb(72, 168, 160) ;
+    cursor: pointer;
+}
+p{
+    font-family:'Montserrat', sans-serif ;
+    font-size: 20px;
+ color: rgb(9, 83, 243);   
+}
+h1{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 60px;
+    font-weight: bold;
+    color: blue;
+    
+}
+h3{
+    color:rgb(9, 83, 243) ;
+}
+h2{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 40px;
+    font-weight: bold;
+    color: blue;
+}
+h5{
+    font-family:'Montserrat', sans-serif ;
+    font-size: 25px; 
+    font-weight: 600;
+}
+.fa-sun{
+color: rgb(250, 250, 54);
+}
+.card-title{
+    color: blue;
+}
+.units{
+    
+    font-size: 22px;
+    font-weight: lighter;
+    position: relative;
+    top: -29px;
+    
+}
+a{
+  text-decoration: none;
+}
