@@ -11,6 +11,20 @@ currentDay.innerHTML=`${weekDay}, ${hours}:${minutes}`
 
 let searchCity=document.querySelector("#search-city")
 
+function displayWeather(response) {
+console.log(response)
+let cityDisplay= document.querySelector ("#city")
+cityDisplay.innerHTML= response.data.name
+
+let temperatureDisplay= document.querySelector("#temp")
+temperatureDisplay.innerHTML=Math.round(response.data.main.temp)
+
+}
+let apiKey=`2b32c331a65444eed43ecdc30bbfe1ab`
+let apiURL= `https://api.openweathermap.org/data/2.5/weather?q=Dnipro&appid=${apiKey}&units=metric`
+
+axios.get(apiURL).then(displayWeather)
+
 function search(event){
 event.preventDefault()
 let searchInput= document.querySelector("#enterCity")
