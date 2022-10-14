@@ -19,6 +19,10 @@ cityDisplay.innerHTML= response.data.name
 let temperatureDisplay= document.querySelector("#temp")
 temperatureDisplay.innerHTML=Math.round(response.data.main.temp)
 
+let humidityDisplay=document.querySelector("#humidity")
+humidityDisplay.innerHTML=response.data.main.humidity
+let windDisplay=document.querySelector("#wind")
+windDisplay.innerHTML= Math.round(response.data.wind.speed)
 }
 let apiKey=`2b32c331a65444eed43ecdc30bbfe1ab`
 let apiURL= `https://api.openweathermap.org/data/2.5/weather?q=Dnipro&appid=${apiKey}&units=metric`
