@@ -1,14 +1,15 @@
 
 body{
-background-color: rgb(220, 247, 238);
+background-color: rgb(218, 250, 239);
         
 }
 .page{
     display: block;
     padding: 150px 50px;
     margin: 15px 150px 15px 150px;
-    background-color: rgb(184, 248, 227);
-    border: rgb(184, 248, 227);
+    background: radial-gradient(circle at 7.4% 45.1%, rgb(236, 206, 251) 0%, rgb(205, 237, 246) 45.1%, rgb(227, 251, 252) 78.4%, rgb(230, 247, 235) 90%);
+    border:solid;
+    border-style: none;
     border-radius: 15px;
     
 }
