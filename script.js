@@ -6,6 +6,7 @@ let week=['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Sat
 let weekDay=week[now.getDay()]
 
 
+
 let currentDay=document.querySelector("#today")
 currentDay.innerHTML=`${weekDay}, ${hours}:${minutes}`
 
@@ -21,8 +22,15 @@ temperatureDisplay.innerHTML=Math.round(response.data.main.temp)
 
 let humidityDisplay=document.querySelector("#humidity")
 humidityDisplay.innerHTML=response.data.main.humidity
+
 let windDisplay=document.querySelector("#wind")
 windDisplay.innerHTML= Math.round(response.data.wind.speed)
+let descriptionDisplay= document.querySelector("#description")
+descriptionDisplay.innerHTML=response.data.weather[0].description
+
+let iconDisplay=document.querySelector("#icon")
+iconDisplay.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`)
+iconDisplay.setAttribute("alt", response.data.weather[0].description)
 }
 let apiKey=`2b32c331a65444eed43ecdc30bbfe1ab`
 let apiURL= `https://api.openweathermap.org/data/2.5/weather?q=Dnipro&appid=${apiKey}&units=metric`
@@ -45,6 +53,17 @@ function showTemperature(response) {
   
   let temperature=document.querySelector("#temp")
   temperature.innerHTML=temp
+  let humidity=document.querySelector("#humidity")
+  humidity.innerHTML=response.data.main.humidity
+
+  let wind=document.querySelector("#wind")
+  wind.innerHTML= Math.round(response.data.wind.speed)
+  let description= document.querySelector("#description")
+  description.innerHTML=response.data.weather[0].description
+
+  let icon=document.querySelector("#icon")
+  icon.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`)
+  icon.setAttribute("alt", response.data.weather[0].description)
 }
 
 axios.get(`${apiURL}&appid=${apiKey}`).then(showTemperature);
