@@ -19,7 +19,7 @@ cityDisplay.innerHTML= response.data.name
 
 let temperatureDisplay= document.querySelector("#temp")
 temperatureDisplay.innerHTML=Math.round(response.data.main.temp)
-
+celciumTemperature=response.data.main.temp
 let humidityDisplay=document.querySelector("#humidity")
 humidityDisplay.innerHTML=response.data.main.humidity
 
@@ -55,7 +55,7 @@ function showTemperature(response) {
   temperature.innerHTML=temp
   let humidity=document.querySelector("#humidity")
   humidity.innerHTML=response.data.main.humidity
-
+  celciumTemperature=Math.round(response.data.main.temp)
   let wind=document.querySelector("#wind")
   wind.innerHTML= Math.round(response.data.wind.speed)
   let description= document.querySelector("#description")
@@ -97,22 +97,24 @@ let currentButton = document.querySelector("#current");
 
 currentButton.addEventListener("click", getCurrentLocation);
 
-// function fTemp(event) {
-//   event.preventDefault();
-//   let currentTemp=document.querySelector('#temp')
-//   let fTemp=Math.round(26 * 1.8 + 32)
-//   currentTemp.innerHTML=fTemp
+let celciumTemperature=null
 
-// }
-// let fahrenheitTemp=document.querySelector("#fahrenheit")
-// fahrenheitTemp.addEventListener("click", fTemp)
+function fTemp(event) {
+  event.preventDefault();
+  let currentTemp=document.querySelector('#temp')
+  let fTemp=Math.round(celciumTemperature * 1.8 + 32)
+  currentTemp.innerHTML=fTemp
 
-// function cTemp(event) {
-//   event.preventDefault();
-//   let currentTemp=document.querySelector('#temp')
-//   currentTemp.innerHTML=26
-// }
+}
+let fahrenheitTemp=document.querySelector("#fahrenheit")
+fahrenheitTemp.addEventListener("click", fTemp)
 
-// let celciumTemp=document.querySelector("#celsius")
-// celciumTemp.addEventListener("click",cTemp)
+function cTemp(event) {
+  event.preventDefault();
+  let currentTemp=document.querySelector('#temp')
+  currentTemp.innerHTML=Math.round(celciumTemperature)
+}
+
+let celciumTemp=document.querySelector("#celsius")
+celciumTemp.addEventListener("click",cTemp)
 
