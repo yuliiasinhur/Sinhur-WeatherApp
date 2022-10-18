@@ -111,3 +111,7 @@ text-align: center;
 #description{
     text-transform: capitalize;
 }
+#forecast{
+    margin-left: 100px
+    ;
+}
