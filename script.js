@@ -39,31 +39,44 @@ function displayForecast() {
 
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
-  console.log(forecastHTML);
+}
+
+function getForecast(coordinates) {
+  console.log(coordinates)
+  let apiKey=`5e4703o0ft74dbca44181bcc0fbdd83a`
+  let apiURL=`https://api.shecodes.io/weather/v1/forecast?lat=${coordinates.latitude}&lon=${coordinates.longitude}&key=${apiKey}&units=metric`
+
+  console.log(apiURL)
+
+
+
 }
 
 function displayWeather(response) {
 console.log(response)
 let cityDisplay= document.querySelector ("#city")
-cityDisplay.innerHTML= response.data.name
+cityDisplay.innerHTML= response.data.city
 
 let temperatureDisplay= document.querySelector("#temp")
-temperatureDisplay.innerHTML=Math.round(response.data.main.temp)
-celciumTemperature=response.data.main.temp
+temperatureDisplay.innerHTML=Math.round(response.data.temperature.current)
+celciumTemperature=response.data.temperature.current
 let humidityDisplay=document.querySelector("#humidity")
-humidityDisplay.innerHTML=response.data.main.humidity
+humidityDisplay.innerHTML=response.data.temperature.humidity
 
 let windDisplay=document.querySelector("#wind")
 windDisplay.innerHTML= Math.round(response.data.wind.speed)
 let descriptionDisplay= document.querySelector("#description")
-descriptionDisplay.innerHTML=response.data.weather[0].description
+descriptionDisplay.innerHTML=response.data.condition.description
 
 let iconDisplay=document.querySelector("#icon")
-iconDisplay.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`)
-iconDisplay.setAttribute("alt", response.data.weather[0].description)
+iconDisplay.setAttribute("src", `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`)
+iconDisplay.setAttribute("alt", response.data.condition.description)
+
+getForecast(response.data.coordinates)
+
 }
-let apiKey=`2b32c331a65444eed43ecdc30bbfe1ab`
-let apiURL= `https://api.openweathermap.org/data/2.5/weather?q=Dnipro&appid=${apiKey}&units=metric`
+let apiKey=`5e4703o0ft74dbca44181bcc0fbdd83a`
+let apiURL= `https://api.shecodes.io/weather/v1/current?query=Dnipro&key=${apiKey}`
 
 axios.get(apiURL).then(displayWeather)
 
@@ -73,27 +86,27 @@ let searchInput= document.querySelector("#enterCity")
 let city=document.querySelector("#city")
 city.innerHTML=searchInput.value 
 
-let apiKey = `25fad9f7e87157d33dde0f82ab269ee8`;
-let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${searchInput.value}&units=metric`;
+let apiKey=`5e4703o0ft74dbca44181bcc0fbdd83a`
+let apiURL =
+`https://api.shecodes.io/weather/v1/current?query=${searchInput.value}&key=${apiKey}&units=metric`;
 
 function showTemperature(response) {
-  console.log(response)
   
-  let temp=Math.round(response.data.main.temp)
+  let temp=Math.round(response.data.temperature.current)
   
   let temperature=document.querySelector("#temp")
   temperature.innerHTML=temp
   let humidity=document.querySelector("#humidity")
-  humidity.innerHTML=response.data.main.humidity
-  celciumTemperature=Math.round(response.data.main.temp)
+  humidity.innerHTML=response.data.temperature.humidity
+  celciumTemperature=Math.round(response.data.temperature.current)
   let wind=document.querySelector("#wind")
   wind.innerHTML= Math.round(response.data.wind.speed)
   let description= document.querySelector("#description")
-  description.innerHTML=response.data.weather[0].description
+  description.innerHTML=response.data.condition.description
 
   let icon=document.querySelector("#icon")
-  icon.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`)
-  icon.setAttribute("alt", response.data.weather[0].description)
+  icon.setAttribute("src", `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`)
+  icon.setAttribute("alt", response.data.condition.description)
 }
 
 axios.get(`${apiURL}&appid=${apiKey}`).then(showTemperature);
@@ -107,7 +120,6 @@ function searchLocation(position) {
   var apiUrl = "https://api.openweathermap.org/data/2.5/weather?lat=".concat(position.coords.latitude, "&lon=").concat(position.coords.longitude, "&appid=").concat(apiKey, "&units=metric");
   axios.get(apiUrl).then(showTemperature);
   function showTemperature(response) {
-    console.log(response)
     
     let temp=Math.round(response.data.main.temp)
     
