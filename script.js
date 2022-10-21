@@ -116,19 +116,32 @@ searchCity.addEventListener("submit", search)
 
 
 function searchLocation(position) {
-  var apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
-  var apiUrl = "https://api.openweathermap.org/data/2.5/weather?lat=".concat(position.coords.latitude, "&lon=").concat(position.coords.longitude, "&appid=").concat(apiKey, "&units=metric");
+  var apiKey = "5e4703o0ft74dbca44181bcc0fbdd83a";
+
+  var apiUrl=`https://api.shecodes.io/weather/v1/current?lon=${position.coords.longitude}&lat=${position.coords.latitude}&key=5e4703o0ft74dbca44181bcc0fbdd83a`
+
   axios.get(apiUrl).then(showTemperature);
   function showTemperature(response) {
     
-    let temp=Math.round(response.data.main.temp)
+    let temp=Math.round(response.data.temperature.current)
     
     let temperature=document.querySelector("#temp")
     temperature.innerHTML=temp
     
-    let currentCity=response.data.name
+    let currentCity=response.data.city
     let displayCity=document.querySelector("#city")
     displayCity.innerHTML=currentCity
+    let humidity=document.querySelector("#humidity")
+  humidity.innerHTML=response.data.temperature.humidity
+  celciumTemperature=Math.round(response.data.temperature.current)
+  let wind=document.querySelector("#wind")
+  wind.innerHTML= Math.round(response.data.wind.speed)
+  let description= document.querySelector("#description")
+  description.innerHTML=response.data.condition.description
+
+  let icon=document.querySelector("#icon")
+  icon.setAttribute("src", `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`)
+  icon.setAttribute("alt", response.data.condition.description)
   }
 }
 function getCurrentLocation(event) {
