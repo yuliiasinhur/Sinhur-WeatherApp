@@ -5,36 +5,45 @@ let minutes=now.getMinutes()
 let week=['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 let weekDay=week[now.getDay()]
 
+function formatDay(timestamp) {
+  let date=new Date(timestamp*1000)
+  let day=date.getDay()
+  let days=["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 
+  return days[day]
+}
 
 let currentDay=document.querySelector("#today")
 currentDay.innerHTML=`${weekDay}, ${hours}:${minutes}`
 
 let searchCity=document.querySelector("#search-city")
 
-function displayForecast() {
+function displayForecast(response) {
+  console.log(response.data.daily)
+  let forecast=response.data.daily
   let forecastElement = document.querySelector("#forecast");
 
-  let days = ["Thu", "Fri", "Sat", "Sun"];
+  let days=["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 
   let forecastHTML = `<div class="row">`;
-  days.forEach(function (day) {
+  forecast.forEach(function (forecastDay, index) {
+    if (index<4) {
     forecastHTML =
       forecastHTML +
       `
       <div class="col-2">
-        <div class="weather-forecast-date">${day}</div>
+        <div class="weather-forecast-date">${formatDay(forecastDay.time)}</div>
         <img
-          src=images/sun.png
+          src=https://shecodes-assets.s3.amazonaws.com/api/weather/icons/${forecastDay.condition.icon}.png
           alt=""
           width="42"
         />
         <div class="weather-forecast-temperatures">
-          <span class="weather-forecast-temperature-max"> 18° </span>
-          <span class="weather-forecast-temperature-min"> 12° </span>
+          <span class="weather-forecast-temperature-max"> ${Math.round(forecastDay.temperature.maximum)}°</span>
+          <span class="weather-forecast-temperature-min"> ${Math.round(forecastDay.temperature.minimum)}° </span>
         </div>
       </div>
-  `;
+  `;}
   });
 
   forecastHTML = forecastHTML + `</div>`;
@@ -42,11 +51,13 @@ function displayForecast() {
 }
 
 function getForecast(coordinates) {
-  console.log(coordinates)
+  
   let apiKey=`5e4703o0ft74dbca44181bcc0fbdd83a`
   let apiURL=`https://api.shecodes.io/weather/v1/forecast?lat=${coordinates.latitude}&lon=${coordinates.longitude}&key=${apiKey}&units=metric`
 
   console.log(apiURL)
+
+  axios.get(apiURL).then(displayForecast)
 
 
 
@@ -107,9 +118,14 @@ function showTemperature(response) {
   let icon=document.querySelector("#icon")
   icon.setAttribute("src", `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`)
   icon.setAttribute("alt", response.data.condition.description)
-}
+  getForecast(response.data.coordinates)
 
-axios.get(`${apiURL}&appid=${apiKey}`).then(showTemperature);
+  }
+
+axios.get(`${apiURL}&appid=${apiKey}`).then(showTemperature)
+
+
+;
 
 }
 searchCity.addEventListener("submit", search)
@@ -142,6 +158,9 @@ function searchLocation(position) {
   let icon=document.querySelector("#icon")
   icon.setAttribute("src", `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`)
   icon.setAttribute("alt", response.data.condition.description)
+  
+  getForecast(response.data.coordinates)
+
   }
 }
 function getCurrentLocation(event) {
@@ -172,4 +191,4 @@ function cTemp(event) {
 
 let celciumTemp=document.querySelector("#celsius")
 celciumTemp.addEventListener("click",cTemp)
-displayForecast()
+
