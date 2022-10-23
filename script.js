@@ -25,9 +25,9 @@ function displayForecast(response) {
 
   let days=["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 
-  let forecastHTML = `<div class="row">`;
+  let forecastHTML = `<div class="row" id="forecast">`;
   forecast.forEach(function (forecastDay, index) {
-    if (index<4) {
+    if (index<5) {
     forecastHTML =
       forecastHTML +
       `
@@ -173,22 +173,5 @@ currentButton.addEventListener("click", getCurrentLocation);
 
 let celciumTemperature=null
 
-function fTemp(event) {
-  event.preventDefault();
-  let currentTemp=document.querySelector('#temp')
-  let fTemp=Math.round(celciumTemperature * 1.8 + 32)
-  currentTemp.innerHTML=fTemp
 
-}
-let fahrenheitTemp=document.querySelector("#fahrenheit")
-fahrenheitTemp.addEventListener("click", fTemp)
-
-function cTemp(event) {
-  event.preventDefault();
-  let currentTemp=document.querySelector('#temp')
-  currentTemp.innerHTML=Math.round(celciumTemperature)
-}
-
-let celciumTemp=document.querySelector("#celsius")
-celciumTemp.addEventListener("click",cTemp)
 
